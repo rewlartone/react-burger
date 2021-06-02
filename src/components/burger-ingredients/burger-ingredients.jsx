@@ -15,21 +15,30 @@ function BurgerIngredients(props) {
     setSauce(props.data.filter((item) => item.type === "sauce"));
     setMain(props.data.filter((item) => item.type === "main"));
   }, []);
-
+  
+const setTab = (tab) => {
+    setCurrent(tab);
+	let element;
+	if(tab === "Булки") element = document.getElementById('bun');
+	if(tab === "Соусы") element = document.getElementById('sauce');
+	if(tab === "Начинки") element = document.getElementById('main');
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+  
   return (
     <section className={styles.wrap}>
       <h1 className="text text_type_main-medium">Соберите бургер</h1>
       <div style={{ display: "flex" }}>
-        <Tab value="Булки" active={current === "Булки"} onClick={setCurrent}>
+        <Tab value="Булки" active={current === "Булки"} onClick={setTab}>
           Булки
         </Tab>
-        <Tab value="Соусы" active={current === "Соусы"} onClick={setCurrent}>
+        <Tab value="Соусы" active={current === "Соусы"} onClick={setTab}>
           Соусы
         </Tab>
         <Tab
           value="Начинки"
           active={current === "Начинки"}
-          onClick={setCurrent}
+          onClick={setTab}
         >
           Начинки
         </Tab>

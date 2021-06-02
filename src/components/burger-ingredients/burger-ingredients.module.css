@@ -19,6 +19,10 @@
 }
 
 .ingredients h2 {
+	position:relative;
+	clear:both;
+	width:100%;
+	float:left;
     margin-top:40px;
 	margin-bottom:0;
 	line-height: 30px;

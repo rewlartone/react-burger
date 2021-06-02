@@ -9,7 +9,7 @@ import {
 function Ingredients(props) {
   return (
     <>
-      <h2 className="text text_type_main-medium">{props.typeRu}</h2>
+      <h2 className="text text_type_main-medium" id={props.type}>{props.typeRu}</h2>
       {props.data.map((item, index) => {
         return (
           <div className={styles.item} key={item._id}>

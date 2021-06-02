@@ -18,12 +18,17 @@
 
 .elements{
 	position:relative;
-	padding-right:8px;
+	padding: 0 8px 0 0;
+	margin:0;
 	height:440px;
-	width:572.5px;
-	overflow-y: scroll;
+	width:573.5px;
 	right:29px;
+	overflow-y: scroll;
 }
+.elements li{
+	list-style-image: none;
+}
+
 .elements::-webkit-scrollbar {
     width: 8px; 
     height: 8px; 

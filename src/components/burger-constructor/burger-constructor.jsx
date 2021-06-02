@@ -34,13 +34,13 @@ function BurgerConstructor(props) {
         price={bun.price}
         thumbnail={bun.image}
       />
-      <div
+      <ul
         className={styles.elements}
         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
       >
         {elements.map((element, index) => {
           return (
-            <section className={styles.element} key={element._id}>
+            <li className={styles.element} key={element._id}>
               <div className={styles.icon}>
                 <DragIcon type="primary" />
               </div>
@@ -49,10 +49,10 @@ function BurgerConstructor(props) {
                 price={element.price}
                 thumbnail={element.image}
               />
-            </section>
+            </li>
           );
         })}
-      </div>
+      </ul>
       <ConstructorElement
         type="bottom"
         isLocked={true}
