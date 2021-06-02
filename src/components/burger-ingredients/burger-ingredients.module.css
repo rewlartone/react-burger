@@ -17,12 +17,14 @@
 	width:600px;
 	height:716px;
 }
+
 .ingredients h2 {
     margin-top:40px;
 	margin-bottom:0;
 	line-height: 30px;
 	font-size:24px;
 }
+
 .item{
 	position: relative;
 	margin-top:32px;
@@ -38,6 +40,7 @@
 	padding-left:16px;
 	padding-right:16px;
 }
+
 .item p {
 	margin-top:4px;
 }
@@ -48,6 +51,7 @@
 	align-items: center;
 	margin-top:4px;
 }
+
 .price svg{
 	padding-left:8px;
 }
