@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
 import styles from "../burger-ingredients/burger-ingredients.module.css";
 import {
   CurrencyIcon,
@@ -7,12 +8,31 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function Ingredients(props) {
+  const [visible, setVisible] = React.useState(false);
+  const [ingredient, setIngredient] = React.useState({});
+  function popup(item) {
+    setIngredient(item);
+    setVisible(true);
+  }
+
   return (
     <>
-      <h2 className="text text_type_main-medium" id={props.type}>{props.typeRu}</h2>
+      <IngredientDetails
+        setVisible={setVisible}
+        visible={visible}
+        item={ingredient}
+      />
+      <h2 className="text text_type_main-medium" id={props.type}>
+        {props.typeRu}
+      </h2>
       {props.data.map((item, index) => {
         return (
-          <div className={styles.item} key={item._id}>
+          <div
+            className={styles.item}
+            key={item._id}
+            onClick={() => popup(item)}
+            style={{ cursor: "pointer" }}
+          >
             <img src={item.image} />
             <div className={styles.price}>
               <p className="text text_type_digits-default">{item.price}</p>
@@ -38,6 +58,5 @@ Ingredients.propTypes = {
     })
   ).isRequired,
 };
-
 
 export default Ingredients;
