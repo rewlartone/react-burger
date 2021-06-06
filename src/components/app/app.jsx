@@ -9,10 +9,17 @@ function App() {
   const url = "https://norma.nomoreparties.space/api/ingredients";
   useEffect(() => {
     const getData = async (url) => {
-      const res = await fetch(url).catch((e) => console.log(e));
-      let dataFetch = await res.json();
-      dataFetch = dataFetch.data;
-      setState((prev) => dataFetch);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error("Ответ сети не ok");
+        }
+        let dataFetch = await res.json();
+        dataFetch = dataFetch.data;
+        setState((prev) => dataFetch);
+      } catch (e) {
+        console.log("Проблема с fetch запросом: ", e.message);
+      }
     };
     getData(url);
   }, []);

@@ -8,17 +8,23 @@ import styles from "./modal.module.css";
 const modalRoot = document.getElementById("react-modals");
 
 function Modal({ setVisible, visible, children, details }) {
-  const closeModal = () => {
+  const closeModal = React.useCallback(() => {
     setVisible(false);
-  };
+  }, [setVisible]);
 
   useEffect(() => {
-    window.onkeydown = function (event) {
+    window.addEventListener("keydown", escClose);
+
+    function escClose(event) {
       if (event.keyCode == 27) {
         closeModal();
       }
+    }
+
+    return () => {
+      window.removeEventListener("keydown", escClose);
     };
-  });
+  }, [closeModal]);
 
   return ReactDOM.createPortal(
     visible && (
