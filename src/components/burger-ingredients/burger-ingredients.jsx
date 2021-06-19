@@ -1,25 +1,54 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import Ingredients from "../ingredients/ingredients.jsx";
 import Modal from "../modal/modal.jsx";
-
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerIngredients(props) {
+function BurgerIngredients() {
+  const dispatch = useDispatch();
+
+  const { ingredients } = useSelector((store) => store.ingredients);
+
   const [current, setCurrent] = React.useState("Булки");
   const buns = useMemo(
-    () => props.data.filter((item) => item.type === "bun"),
-    [props.data]
+    () => ingredients.filter((item) => item.type === "bun"),
+    [ingredients]
   );
   const sauces = useMemo(
-    () => props.data.filter((item) => item.type === "sauce"),
-    [props.data]
+    () => ingredients.filter((item) => item.type === "sauce"),
+    [ingredients]
   );
   const mains = useMemo(
-    () => props.data.filter((item) => item.type === "main"),
-    [props.data]
+    () => ingredients.filter((item) => item.type === "main"),
+    [ingredients]
   );
+
+  const ingredientsHTML = useRef(null);
+  useEffect(() => {
+    ingredientsHTML.current.addEventListener("scroll", detectCurrent);
+    return () => {
+      ingredientsHTML.current.removeEventListener("scroll", detectCurrent);
+    };
+  }, []);
+
+  const detectCurrent = () => {
+    if (
+      Math.ceil(ingredientsHTML.current.scrollTop) <
+      document.getElementById("bunsblock").offsetHeight
+    ) {
+      setCurrent("Булки");
+    } else if (
+      Math.ceil(ingredientsHTML.current.scrollTop) <
+      document.getElementById("bunsblock").offsetHeight +
+        document.getElementById("saucesblock").offsetHeight
+    ) {
+      setCurrent("Соусы");
+    } else {
+      setCurrent("Начинки");
+    }
+  };
 
   const setTab = (tab) => {
     setCurrent(tab);
@@ -44,7 +73,7 @@ function BurgerIngredients(props) {
           Начинки
         </Tab>
       </div>
-      <div className={styles.ingredients}>
+      <div className={styles.ingredients} ref={ingredientsHTML}>
         <Ingredients data={buns} type="bun" typeRu="Булки" />
         <Ingredients data={sauces} type="sauce" typeRu="Соусы" />
         <Ingredients data={mains} type="main" typeRu="Начинки" />
@@ -52,15 +81,5 @@ function BurgerIngredients(props) {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      image: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
 
 export default BurgerIngredients;

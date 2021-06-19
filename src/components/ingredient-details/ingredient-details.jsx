@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 import Modal from "../modal/modal.jsx";
+import { useSelector } from "react-redux";
 
-function IngredientDetails({ setVisible, visible, item }) {
+function IngredientDetails() {
+  const { item } = useSelector((store) => store.modal);
+
   return (
-    <Modal
-      setVisible={setVisible}
-      details={"Детали ингридиента"}
-      visible={visible}
-    >
+    <Modal details={"Детали ингридиента"}>
       <div className={styles.details}>
         <img src={item.image_large} />
         <p className="text text_type_main-medium">{item.name}</p>
@@ -41,18 +40,5 @@ function IngredientDetails({ setVisible, visible, item }) {
     </Modal>
   );
 }
-
-IngredientDetails.propTypes = {
-  setVisible: PropTypes.func.isRequired,
-  visible: PropTypes.bool.isRequired,
-  item: PropTypes.shape({
-    image_large: PropTypes.string,
-    name: PropTypes.string,
-    calories: PropTypes.number,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-  }).isRequired,
-};
 
 export default IngredientDetails;

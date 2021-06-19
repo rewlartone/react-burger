@@ -1,51 +1,34 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
-import styles from "../burger-ingredients/burger-ingredients.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
+import Ingredient from "../ingredient/ingredient.jsx";
 
 function Ingredients(props) {
-  const [visible, setVisible] = React.useState(false);
-  const [ingredient, setIngredient] = React.useState({});
-  function popup(item) {
-    setIngredient(item);
-    setVisible(true);
-  }
+  const { visible } = useSelector((store) => store.modal);
+  const { bun } = useSelector((store) => store.burgerConstructor);
 
   return (
-    <>
-      <IngredientDetails
-        setVisible={setVisible}
-        visible={visible}
-        item={ingredient}
-      />
-      <h2 className="text text_type_main-medium" id={props.type}>
-        {props.typeRu}
-      </h2>
-      {props.data.map((item, index) => {
-        return (
-          <div
-            className={styles.item}
-            key={item._id}
-            onClick={() => popup(item)}
-            style={{ cursor: "pointer" }}
-          >
-            <img src={item.image} />
-            <div className={styles.price}>
-              <p className="text text_type_digits-default">{item.price}</p>
-              <CurrencyIcon type="primary" />
-            </div>
-            <p className="text text_type_main-default">{item.name}</p>
-            <div className={styles.counter}>
-              <Counter count={1} size="default" />
-            </div>
-          </div>
-        );
-      })}
-    </>
+    bun && (
+      <>
+        {visible && <IngredientDetails />}
+        <h2 className="text text_type_main-medium" id={props.type}>
+          {props.typeRu}
+        </h2>
+        <div
+          id={props.type + "sblock"}
+          style={{ height: "auto", position: "relative", float: "left" }}
+        >
+          {props.data.map((item, index) => {
+            return <Ingredient item={item} key={index} />;
+          })}
+        </div>
+      </>
+    )
   );
 }
 
