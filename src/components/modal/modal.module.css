@@ -1,0 +1,28 @@
+.modal{
+	position:fixed;
+	width:720px;
+	margin-left:calc(50vw - 360px);
+	background:#1C1C21;
+	border-radius:40px;
+	z-index:2;
+}
+
+.header svg {
+	position:relative;
+	float:right;
+	cursor:pointer;
+	
+}
+.header p {
+	position:relative;
+	float:left;
+}
+.header{
+	display:flex;
+	justify-content: space-between;
+	height:64px;
+	align-items: center;
+	padding-top:60px;
+	padding-left:40px;
+	padding-right:40px;
+}
