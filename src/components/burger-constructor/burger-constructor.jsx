@@ -47,7 +47,7 @@ function BurgerConstructor() {
   const [cost, setCost] = React.useState(0);
 
   const popup = () => {
-    let idsForOrder = elements.map((item) => {
+    const	 idsForOrder = elements.map((item) => {
       return item._id;
     });
     idsForOrder.push(bun._id);
@@ -65,27 +65,21 @@ function BurgerConstructor() {
     });
   };
 
-  useEffect(() => {
-    if (ingredients[0] != undefined) {
-      dispatch({
-        type: SET_BUN,
-        bun: ingredients[0],
-      });
-    }
-  }, [ingredients]);
+
 
   useMemo(() => {
-    if (ingredients[0] != undefined) {
+    if (ingredients[0] !== undefined) {
       setCost(0);
-      elements.map((element) => {
+      elements.forEach((element) => {
         setCost((prev) => prev + element.price);
       });
-      setCost((prev) => prev + bun.price * 2);
+	  if(bun !== null) setCost((prev) => prev + bun.price * 2) ;
+      
     }
   }, [elements, bun]);
 
   return (
-    bun && (
+  
       <>
         {order && <OrderDetails />}
         <div
@@ -93,12 +87,13 @@ function BurgerConstructor() {
           style={{ display: "flex", flexDirection: "column", gap: "10px" }}
           ref={dropTarget}
         >
+		{!elements[0] && !bun && <p className="text text_type_main-default" style={{textAlign: 'center'}}>Перетащите ингредиент, чтобы собрать бургер</p>}
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={bun.name}
-            price={bun.price}
-            thumbnail={bun.image}
+            text={bun && bun.name}
+            price={bun && bun.price}
+           thumbnail={bun && bun.image}
           />
           <ul
             className={styles.elements}
@@ -111,20 +106,20 @@ function BurgerConstructor() {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={bun.name}
-            price={bun.price}
-            thumbnail={bun.image}
+            text={bun && bun.name}
+            price={bun && bun.price}
+			thumbnail={bun && bun.image}
           />
           <div className={styles.price}>
             <p className="text text_type_digits-medium">{cost}</p>
             <CurrencyIcon type="primary" />
-            <Button type="primary" size="large" onClick={() => popup()}>
+            <Button type="primary" size="large" onClick={() => {elements[0] && bun && popup()}} >
               Оформить заказ
             </Button>
           </div>
         </div>
       </>
-    )
+    
   );
 }
 

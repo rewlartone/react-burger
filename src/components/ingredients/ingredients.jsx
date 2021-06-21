@@ -7,15 +7,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import Ingredient from "../ingredient/ingredient.jsx";
+import Modal from "../modal/modal.jsx";
 
 function Ingredients(props) {
   const { visible } = useSelector((store) => store.modal);
-  const { bun } = useSelector((store) => store.burgerConstructor);
+  const { ingredients } = useSelector((store) => store.burgerConstructor);
 
   return (
-    bun && (
+    
       <>
-        {visible && <IngredientDetails />}
+        {visible && <Modal details={"Детали ингридиента"}><IngredientDetails /></Modal>}
         <h2 className="text text_type_main-medium" id={props.type}>
           {props.typeRu}
         </h2>
@@ -28,7 +29,7 @@ function Ingredients(props) {
           })}
         </div>
       </>
-    )
+ 
   );
 }
 

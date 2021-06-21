@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
-import Modal from "../modal/modal.jsx";
 import { useSelector } from "react-redux";
 
 function IngredientDetails() {
   const { item } = useSelector((store) => store.modal);
 
   return (
-    <Modal details={"Детали ингридиента"}>
       <div className={styles.details}>
-        <img src={item.image_large} />
+        <img src={item.image_large} alt={'рисунок ' + item.name} />
         <p className="text text_type_main-medium">{item.name}</p>
         <ul>
           <li>
@@ -37,7 +35,6 @@ function IngredientDetails() {
           </li>
         </ul>
       </div>
-    </Modal>
   );
 }
 

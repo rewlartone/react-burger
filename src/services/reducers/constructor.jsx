@@ -3,13 +3,13 @@ import {
   SET_ELEMENT_BETWEEN,
   SET_BUN,
   DELETE_ELEMENT,
+  CLEAR_CONSTRUCTOR
 } from "../actions/constructor.jsx";
 
 const initialState = {
   elements: [],
-  bun: null,
-  isDrag: false,
-};
+  bun: null
+  };
 
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -39,6 +39,13 @@ export const burgerConstructorReducer = (state = initialState, action) => {
           ...state.elements.slice(0, action.index),
           ...state.elements.slice(action.index + 1),
         ],
+      };
+    }
+	case CLEAR_CONSTRUCTOR: {
+      return {
+        ...state,
+        elements: [],
+		bun: null
       };
     }
 

@@ -12,10 +12,10 @@ export function getIngredients() {
         "https://norma.nomoreparties.space/api/ingredients"
       );
       if (!res.ok) {
-        throw new Error("Ответ сети не ok");
-        dispatch({
+		dispatch({
           type: GET_INGREDIENTS_FAILED,
         });
+        throw new Error("Ответ сети не ok");
       }
       let dataFetch = await res.json();
       dataFetch = dataFetch.data;

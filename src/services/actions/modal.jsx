@@ -1,3 +1,5 @@
+import { CLEAR_CONSTRUCTOR } from "./constructor.jsx";
+
 export const SET_ITEM = 'SET_ITEM';
 export const CLOSE = 'CLOSE';
 export const ORDER_DETAILS = 'ORDER_DETAILS';
@@ -21,16 +23,19 @@ export function getOrder(arr) {
 			})
 });
         if (!res.ok) {
-          throw new Error("Ответ сети не ok");
-		   dispatch({
+		dispatch({
           type: GET_ORDER_FAILED
         });
+          throw new Error("Ответ сети не ok");
         }
         let dataFetch = await res.json();
         dispatch({
           type: GET_ORDER_SUCCESS,
 		  num: dataFetch.order.number
         });
+		dispatch({
+      type: CLEAR_CONSTRUCTOR,
+    });
       } catch (e) {
         console.log("Проблема с fetch запросом: ", e.message);
 		dispatch({

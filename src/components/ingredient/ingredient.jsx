@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "../burger-ingredients/burger-ingredients.module.css";
 import {
@@ -28,7 +28,8 @@ function Ingredient(props) {
       opacity: monitor.isDragging() ? 0 : 1,
     }),
   });
-
+  
+  
   return (
     <div
       className={styles.item}
@@ -38,7 +39,7 @@ function Ingredient(props) {
       ref={dragRef}
       style={{ cursor: "pointer", opacity }}
     >
-      <img src={props.item.image} />
+      <img src={props.item.image} alt={'рисунок ' + props.item.name} />
       <div className={styles.price}>
         <p className="text text_type_digits-default">{props.item.price}</p>
         <CurrencyIcon type="primary" />
@@ -46,12 +47,8 @@ function Ingredient(props) {
       <p className="text text_type_main-default">{props.item.name}</p>
       <div className={styles.counter}>
         <Counter
-          count={
-            bun._id === props.item._id
-              ? 2
-              : elements.filter((element) => element._id === props.item._id)
-                  .length
-          }
+          count={bun === null ? (elements.filter((element) => element._id === props.item._id).length) : (bun._id === props.item._id
+              ? 2 : elements.filter((element) => element._id === props.item._id).length)}
           size="default"
         />
       </div>

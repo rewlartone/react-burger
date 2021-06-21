@@ -15,13 +15,14 @@ function Modal(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    window.addEventListener("keydown", escClose);
 
     function escClose(event) {
       if (event.keyCode == 27) {
         closeModal();
       }
     }
+	
+	window.addEventListener("keydown", escClose);
 
     return () => {
       window.removeEventListener("keydown", escClose);
@@ -29,11 +30,8 @@ function Modal(props) {
   }, [closeModal]);
 
   return ReactDOM.createPortal(
-    <>
-      {" "}
-      <div onClick={closeModal}>
-        <ModalOverlay />
-      </div>{" "}
+    <>	
+        <ModalOverlay closeModal={closeModal} />
       <div className={styles.modal}>
         <section className={styles.header}>
           <p className="text text_type_main-large">{props.details}</p>
