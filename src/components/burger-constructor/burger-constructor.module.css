@@ -9,6 +9,7 @@
 	display: flex;
 	align-items: center;
 	position:relative;
+	cursor:pointer;
 }
 
 .icon{
@@ -20,7 +21,8 @@
 	position:relative;
 	padding: 0 8px 0 0;
 	margin:0;
-	height:440px;
+	max-height:440px;
+	min-height:80px;
 	width:573.5px;
 	right:29px;
 	overflow-y: scroll;
@@ -54,4 +56,10 @@
 	height:33px;
 	padding-left:9.5px;
 	padding-right:40px;
+}
+
+.dropContainer{
+	width:90%;
+	height:100%;
+	position:absolute;
 }

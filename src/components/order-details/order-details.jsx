@@ -3,12 +3,13 @@ import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
 import Modal from "../modal/modal.jsx";
 import CheckMarkIconImg from "../../images/check-mark-icon-img.jpg";
+import { useSelector } from "react-redux";
 
-function OrderDetails({ setVisible, visible }) {
-  const [orderId, setOrderId] = React.useState("034536");
+function OrderDetails() {
+  const { orderId } = useSelector((store) => store.modal);
 
   return (
-    <Modal setVisible={setVisible} visible={visible}>
+    <Modal>
       <div className={styles.details}>
         <p className={`${styles.digits} text text_type_digits-large`}>
           {orderId}
@@ -25,10 +26,5 @@ function OrderDetails({ setVisible, visible }) {
     </Modal>
   );
 }
-
-OrderDetails.propTypes = {
-  setVisible: PropTypes.func.isRequired,
-  visible: PropTypes.bool.isRequired,
-};
 
 export default OrderDetails;
