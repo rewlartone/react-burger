@@ -6,8 +6,12 @@ main{
 	display: flex;
 	width:100vw;
 	justify-content: center;
+	
 }
-
+.input{
+	width:480px;
+	margin-top:24px;
+}
 #react-modals{
 	position:fixed;
 	top:0;

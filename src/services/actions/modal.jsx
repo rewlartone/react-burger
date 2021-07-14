@@ -1,4 +1,5 @@
 import { CLEAR_CONSTRUCTOR } from "./constructor.jsx";
+import { getCookie } from "../auth.jsx"
 
 export const SET_ITEM = 'SET_ITEM';
 export const CLOSE = 'CLOSE';
@@ -16,7 +17,8 @@ export function getOrder(arr) {
         const res =  await fetch('https://norma.nomoreparties.space/api/orders', {
 			method: "POST",
 			headers: {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
+  Authorization: 'Bearer ' + getCookie("accessToken")
 },
 			body: JSON.stringify({
 				ingredients : arr

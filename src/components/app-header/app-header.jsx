@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./app-header.module.css";
+import { NavLink } from "react-router-dom";
 import {
   Logo,
   BurgerIcon,
@@ -14,19 +15,33 @@ function AppHeader() {
         <Logo />
       </nav>
       <nav>
-        <a href="#" className={`${styles.menu} text text_type_main-default`}>
+        <NavLink
+          exact={true}
+          to={{ pathname: `/` }}
+          className={`${styles.menu} text text_type_main-default`}
+          activeClassName={styles.menuactive}
+        >
           <BurgerIcon className={styles.img} type="primary" />
           Конструктор
-        </a>
-        <a href="#" className={`${styles.menu} text text_type_main-default`}>
+        </NavLink>
+        <NavLink
+          exact={true}
+          to={{ pathname: `/feed` }}
+          className={`${styles.menu} text text_type_main-default`}
+          activeClassName={styles.menuactive}
+        >
           <ListIcon className={styles.img} type="primary" />
           Лента заказов
-        </a>
+        </NavLink>
       </nav>
-      <a href="#" className={`${styles.menu} text text_type_main-default`}>
+      <NavLink
+        to={{ pathname: `/profile` }}
+        className={`${styles.menu} text text_type_main-default`}
+        activeClassName={styles.menuactive}
+      >
         <ProfileIcon className={styles.img} type="primary" />
         Личный кабинет
-      </a>
+      </NavLink>
     </header>
   );
 }

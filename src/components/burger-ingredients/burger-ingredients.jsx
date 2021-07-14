@@ -27,10 +27,9 @@ function BurgerIngredients() {
 
   const ingredientsHTML = useRef(null);
   useEffect(() => {
-    ingredientsHTML.current.addEventListener("scroll", detectCurrent);
-    return () => {
-      ingredientsHTML.current.removeEventListener("scroll", detectCurrent);
-    };
+    const current = ingredientsHTML.current;
+    current.addEventListener("scroll", detectCurrent);
+    return () => current.removeEventListener("scroll", detectCurrent);
   }, []);
 
   const detectCurrent = () => {
