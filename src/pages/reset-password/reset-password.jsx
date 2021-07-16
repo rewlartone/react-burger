@@ -33,16 +33,7 @@ function ResetPass() {
       />
     );
   }
-  if (!forgotPassSuccess) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/forgot-password',
-        }}
-      />
-    );
-  }
-  if (resetPassSuccess) {
+      if (resetPassSuccess) {
     return (
       <Redirect
         to={{
@@ -51,7 +42,16 @@ function ResetPass() {
       />
     );
   }
-
+    if (!forgotPassSuccess) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/forgot-password',
+        }}
+      />
+    );
+  }
+  
   return (
     <div className={styles.resetpass}>
       <h1 className="text text_type_main-medium">Восстановление пароля</h1>

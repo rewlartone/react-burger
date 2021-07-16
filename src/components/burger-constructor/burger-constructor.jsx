@@ -109,6 +109,7 @@ function BurgerConstructor() {
           className={styles.elements}
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
         >
+		{/*При попытке поставить key={element._id} реакт пишет "Keys should be unique", тут ведь могут быть 2 и более одинаковых элемента, поэтому оставил index*/}
           {elements.map((element, index) => {
             return <Element element={element} index={index} key={index} />;
           })}

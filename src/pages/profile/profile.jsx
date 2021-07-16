@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import {
   EmailInput,
   Input,
+  Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Profile() {
@@ -29,6 +30,9 @@ function Profile() {
     setValue({ email: user.email, name: user.name });
   }, [user]);
 
+	const cancel = () => {
+        setValue({ email: user.email, name: user.name });
+  };
   const save = () => {
     auth.setData(form);
   };
@@ -53,7 +57,6 @@ function Profile() {
           }}
           onBlur={() => {
             setIsDisabledName(true);
-            save();
           }}
           errorText={'Ошибка'}
           size={'default'}
@@ -72,7 +75,6 @@ function Profile() {
           }}
           onBlur={() => {
             setIsDisabledEmail(true);
-            save();
           }}
           errorText={'Ошибка'}
           size={'default'}
@@ -95,6 +97,12 @@ function Profile() {
           errorText={'Ошибка'}
           size={'default'}
         />
+		<Button type="primary" size="medium" onClick={cancel}>
+			Отмена
+		</Button>
+		<Button type="primary" size="medium" onClick={save}>
+			Сохранить
+		</Button>
       </div>
     </>
   );

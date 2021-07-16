@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import AppHeader from "../app-header/app-header.jsx";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients.jsx";
-import BurgerConstructor from "../burger-constructor/burger-constructor.jsx";
-import IngredientDetails from "../ingredient-details/ingredient-details.jsx";
+import ModalSwitch from "../modal-switch/modal-switch.jsx";
 import SignIn from "../../pages/sign-in/sign-in.jsx";
 import ForgotPass from "../../pages/forgot-password/forgot-password.jsx";
 import Registration from "../../pages/registration/registration.jsx";
@@ -33,7 +31,7 @@ function App() {
       dispatch(userRequest());
     }
   }, [dispatch]);
-
+  
   return (
     <>
       {(isUserNotLoad || user.email) && (
@@ -43,10 +41,7 @@ function App() {
 
             <main>
               <DndProvider backend={HTML5Backend}>
-                <Route path="/" exact={true}>
-                  <BurgerIngredients />
-                  <BurgerConstructor />
-                </Route>
+			   <ModalSwitch />
                 <Route path="/login">
                   <SignIn />
                 </Route>
@@ -68,10 +63,6 @@ function App() {
                 <Route path="/feed" exact={true}>
                   <OrderFeed />
                 </Route>
-                <Route exact path="/ingredients/:id">
-                  {" "}
-                  <IngredientDetails />{" "}
-                </Route>
                 <Route exact path="/feed/:id">
                   {" "}
                   <OrderInfo />{" "}
@@ -79,7 +70,7 @@ function App() {
                 <ProtectedRoute exact path="/profile/orders/:id">
                   {" "}
                   <OrderInfo />{" "}
-                </ProtectedRoute>
+	  </ProtectedRoute>
               </DndProvider>
             </main>
           </Router>
@@ -88,5 +79,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;

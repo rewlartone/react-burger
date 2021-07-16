@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 function IngredientDetails() {
   const { item } = useSelector((store) => store.modal);
-
+  let location = useLocation();
+  let background = location.state && location.state.background;
+console.log(location.state);
   const { id } = useParams();
   const { ingredients } = useSelector((store) => store.ingredients);
   const itemUrl = id
@@ -18,7 +21,7 @@ function IngredientDetails() {
     <>
       {ingredients[0] && (
         <div className={styles.details}>
-          {id && (
+          {!background && (
             <p
               className="text text_type_main-large"
               style={{ marginTop: "40px" }}

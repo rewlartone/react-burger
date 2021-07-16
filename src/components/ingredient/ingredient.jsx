@@ -8,11 +8,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { SET_ITEM } from "../../services/actions/modal.jsx";
 import { useDrag } from "react-dnd";
+import { useLocation, Link } from "react-router-dom";
+
 
 function Ingredient(props) {
   const dispatch = useDispatch();
   const { elements } = useSelector((store) => store.burgerConstructor);
   const { bun } = useSelector((store) => store.burgerConstructor);
+  let location = useLocation();
 
   function popup(item) {
     dispatch({
@@ -31,6 +34,14 @@ function Ingredient(props) {
   
   
   return (
+  <Link
+          key={props.item._id}
+          to={{
+            pathname: `/ingredients/${props.item._id}`,
+            state: { background: location }
+          }}
+		  style={{color:'#fff'}}
+        >
     <div
       className={styles.item}
       onClick={() => {
@@ -53,6 +64,7 @@ function Ingredient(props) {
         />
       </div>
     </div>
+	</Link>
   );
 }
 

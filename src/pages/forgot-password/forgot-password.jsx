@@ -30,6 +30,7 @@ function ForgotPass() {
       />
     );
   }
+  
   if (forgotPassSuccess) {
     return (
       <Redirect

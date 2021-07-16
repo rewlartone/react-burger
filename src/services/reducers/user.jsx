@@ -170,16 +170,16 @@ export const userReducer = (state = initialState, action) => {
 		 case RESET_PASS_REQUEST: {
       return {
         ...state,
-         resetPassRequest: true,
-		 forgotPassSuccess:false
+         resetPassRequest: true
       };
     }
     case RESET_PASS_SUCCESS: {
       return {
         ...state,
          resetPassFailed: false,
-         resetPassRequest: false,
-		 resetPassSuccess:true
+		 resetPassSuccess:true,
+		 forgotPassSuccess:false,
+         resetPassRequest: false
       };
     }
     case RESET_PASS_FAILED: {
