@@ -9,18 +9,20 @@ import { Route, Switch, useLocation, useHistory  } from "react-router-dom";
  function ModalSwitch() {
   const location = useLocation();
   const history = useHistory(); 
-  const background = history.action === "PUSH";
-  
+  let background = location.state && location.state.background ;
+  if(!(history.action === "PUSH")){
+	  background = undefined;
+  }
   return (
     <>
-      <Switch>
+      <Switch location={ background || location }>
         <Route exact path="/">
 		<BurgerIngredients />
         <BurgerConstructor />
-		</Route>    {background && <Route path="/ingredients/:id" children={<><BurgerIngredients />
-        <BurgerConstructor /><Modal details={"Детали ингридиента"}><IngredientDetails /> </Modal></>} />}
+		</Route>  
+		<Route path="/ingredients/:id" children={<IngredientDetails/>} 	/>
       </Switch>
-	  { !background && <Route path="/ingredients/:id" children={<IngredientDetails />} /> }
+	  { background && <Route path="/ingredients/:id" children={<Modal details={"Детали ингридиента"}><IngredientDetails /> </Modal>} /> }
     </>
   );
 }

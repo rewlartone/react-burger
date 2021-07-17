@@ -9,19 +9,19 @@ function IngredientDetails() {
   const { item } = useSelector((store) => store.modal);
   const location = useLocation();
   const history = useHistory(); 
-  const background = history.action === "PUSH";
+  const isPopUp = history.action === "PUSH";
   const { id } = useParams();
   const { ingredients } = useSelector((store) => store.ingredients);
   const itemUrl = id
     ? ingredients.find((ingredients) => ingredients._id === id)
     : null;
   const ingredient = itemUrl || item;
-
+console.log('ingr');
   return (
     <>
       {ingredients[0] && (
         <div className={styles.details}>
-          {!background && (
+          {!isPopUp && (
             <p
               className="text text_type_main-large"
               style={{ marginTop: "40px" }}
