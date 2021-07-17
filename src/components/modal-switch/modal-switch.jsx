@@ -9,18 +9,18 @@ import { Route, Switch, useLocation, useHistory  } from "react-router-dom";
  function ModalSwitch() {
   const location = useLocation();
   const history = useHistory(); 
-  let background = location.state && location.state.background;
-  //location.state.background почему то не обновляется при перезагрузке страницы, при переходе на адрес /ingredients/:id элемент окрывается в новом окне
+  const background = history.action === "PUSH";
+  
   return (
     <>
-      <Switch location={background || location}>
+      <Switch>
         <Route exact path="/">
 		<BurgerIngredients />
         <BurgerConstructor />
-		</Route>
-        <Route path="/ingredients/:id"><IngredientDetails /> </Route>
+		</Route>    {background && <Route path="/ingredients/:id" children={<><BurgerIngredients />
+        <BurgerConstructor /><Modal details={"Детали ингридиента"}><IngredientDetails /> </Modal></>} />}
       </Switch>
-      {background && <Route path="/ingredients/:id" children={<Modal details={"Детали ингридиента"}><IngredientDetails /> </Modal>} />}
+	  { !background && <Route path="/ingredients/:id" children={<IngredientDetails />} /> }
     </>
   );
 }

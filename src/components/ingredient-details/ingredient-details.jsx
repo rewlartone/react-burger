@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useHistory } from "react-router-dom";
 
 function IngredientDetails() {
   const { item } = useSelector((store) => store.modal);
-  let location = useLocation();
-  let background = location.state && location.state.background;
-console.log(location.state);
+  const location = useLocation();
+  const history = useHistory(); 
+  const background = history.action === "PUSH";
   const { id } = useParams();
   const { ingredients } = useSelector((store) => store.ingredients);
   const itemUrl = id
