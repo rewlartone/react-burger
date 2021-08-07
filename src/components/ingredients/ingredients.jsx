@@ -16,7 +16,6 @@ function Ingredients(props) {
   return (
     
       <>
-        {visible && <Modal details={"Детали ингридиента"}><IngredientDetails /></Modal>}
         <h2 className="text text_type_main-medium" id={props.type}>
           {props.typeRu}
         </h2>
@@ -25,7 +24,7 @@ function Ingredients(props) {
           style={{ height: "auto", position: "relative", float: "left" }}
         >
           {props.data.map((item, index) => {
-            return <Ingredient item={item} key={index} />;
+            return <Ingredient item={item} key={item._id} />;
           })}
         </div>
       </>

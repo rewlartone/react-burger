@@ -1,0 +1,16 @@
+.registration {
+	margin-top:100px;
+	position:relative;
+	width:480px;
+	text-align:center;
+}
+
+.registration button{
+	margin-top:24px;
+	margin-bottom:80px;
+}
+
+.registration p{
+	padding-bottom:16px;
+}
+

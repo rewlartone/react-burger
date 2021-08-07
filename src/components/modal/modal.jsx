@@ -6,11 +6,18 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { CLOSE } from "../../services/actions/modal.jsx";
+import {
+  useHistory
+} from "react-router-dom";
 const modalRoot = document.getElementById("react-modals");
 
 function Modal(props) {
   const dispatch = useDispatch();
+    let history = useHistory();
   const closeModal = React.useCallback(() => {
+	  if(props.details){
+	  history.goBack();
+	  }
     dispatch({ type: CLOSE });
   }, [dispatch]);
 
@@ -45,7 +52,7 @@ function Modal(props) {
 }
 Modal.propTypes = {
   details: PropTypes.string,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Modal;

@@ -1,0 +1,15 @@
+.signin {
+	margin-top:100px;
+	position:relative;
+	width:480px;
+	text-align:center;
+}
+
+.signin button{
+	margin-top:24px;
+	margin-bottom:80px;
+}
+
+.signin p{
+	padding-bottom:16px;
+}
