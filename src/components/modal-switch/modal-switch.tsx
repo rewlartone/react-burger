@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Modal from "../modal/modal";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -8,9 +8,9 @@ import OrderInfo from "../../pages/order-info/order-info";
 import ProtectedRoute from "../protected-route/protected-route";
 import OrderHistory from "../../pages/order-history/order-history";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
-
+import { ILocation } from '../../services/types';
 const ModalSwitch: React.FC = () => {
-  const location = useLocation();
+  const location = useLocation<ILocation>();
   const history = useHistory();
   let background = location.state && location.state.background;
   console.log(location);

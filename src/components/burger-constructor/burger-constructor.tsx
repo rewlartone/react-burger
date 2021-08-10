@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
-import PropTypes from "prop-types";
+import React, { useMemo } from "react";
 import OrderDetails from "../order-details/order-details";
 import Element from "../element/element";
 import styles from "./burger-constructor.module.css";
@@ -24,7 +23,7 @@ const BurgerConstructor: React.FC = () => {
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: TIngredient) {
       addElement(item);
     },
   });
@@ -104,9 +103,9 @@ const BurgerConstructor: React.FC = () => {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={bun && bun.name}
-          price={bun && bun.price}
-          thumbnail={bun && bun.image}
+          text={bun && bun.name || ''}
+          price={bun && bun.price || 0}
+          thumbnail={bun && bun.image || ''}
         />
         <ul
           className={styles.elements}
@@ -120,9 +119,9 @@ const BurgerConstructor: React.FC = () => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={bun && bun.name}
-          price={bun && bun.price}
-          thumbnail={bun && bun.image}
+          text={bun && bun.name || ''}
+          price={bun && bun.price || 0}
+          thumbnail={bun && bun.image || ''}
         />
         <div className={styles.price}>
           <p className="text text_type_digits-medium">{cost}</p>

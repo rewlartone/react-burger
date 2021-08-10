@@ -1,18 +1,19 @@
+import { AnyAction, MiddlewareAPI, Middleware } from "redux";
 
-export const socketMiddleware = (wsUrl: string, wsMyUrl: string): Middleware<{}, RootState> => {
-  return store => {
-    let socket = null;
-let socketmy = null;
-    return next => action => {
-      const { dispatch, getState } = store;
-      const { type, payload } = action;
+export const socketMiddleware = (wsUrl: string, wsMyUrl: string): Middleware => {
+  return (store: MiddlewareAPI) => {
+    let socket: WebSocket | null = null;
+    let socketmy: WebSocket | null = null;
+    return (next: (a: AnyAction) => void) => (action: AnyAction) => {
+      const { dispatch } = store;
+      const { type } = action;
       if (type === 'WS_CONNECTION_START') {
         socket = new WebSocket(wsUrl);
       }
 	  if (type === 'WS_CONNECTION_MY_START') {
         socketmy = new WebSocket(wsMyUrl+`?token=${localStorage.getItem('accessToken')}`);
       }
-	  
+
       if (socket) {
 
         socket.onopen = event => {
@@ -55,4 +56,4 @@ let socketmy = null;
       next(action);
     };
   };
-}; 
+};

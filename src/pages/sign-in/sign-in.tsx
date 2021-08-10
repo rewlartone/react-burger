@@ -2,41 +2,35 @@ import React from 'react';
 import styles from './sign-in.module.css';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
-import { useHistory } from 'react-router-dom';
 import { useSelector } from '../../services/hooks';
 import {
   Input,
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { ILocation } from '../../services/types';
 
 const SignIn: React.FC = () => {
   let auth = useAuth();
   const [form, setValue] = React.useState<{email: string; password: string}>({ email: '', password: '' });
-  const history = useHistory();
-  let location = useLocation();
+  let location = useLocation<ILocation>();
 
   const { user }: { user: { email: string; name: string; } } = useSelector((store) => store.user);
-  
+
   type TE = React.ReactNode & {
 	target: {
 		name: string;
 		value: string;
 	}
 }
-  
+
   const onChange = (e: TE) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-  
-  let login = React.useCallback(
-    (e) => {
-      e.preventDefault();
+
+  let login = () => {
       auth.signIn(form);
-    },
-    [auth, form]
-  );
+    }
 
   if (user.email) {
     return <Redirect to={location.state?.from || '/'} />;

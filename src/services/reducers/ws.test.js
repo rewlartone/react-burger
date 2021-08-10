@@ -3,8 +3,8 @@ import * as types from "../actions/ws.tsx";
 const state = {
   wsConnected: false,
   wsMyConnected: false,
-  orders: [],
-  myOrders: [],
+  orders:{success: false,orders:null,total: 0, totalToday: 0},
+myOrders: {success: false,orders:null,total: 0, totalToday: 0},
   error: "",
   myError: "",
 };

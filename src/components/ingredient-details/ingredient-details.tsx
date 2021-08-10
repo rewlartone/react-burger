@@ -13,7 +13,7 @@ const IngredientDetails: React.FC = () => {
   const { id }: { id: string } = useParams();
   const { ingredients } = useSelector((store) => store.ingredients);
   const ingredient: TIngredient | null = id
-    ? ingredients.find((ingredients: TIngredient) => ingredients._id === id)
+    ? ingredients.find((ingredients: TIngredient) => ingredients._id === id)!
     : null;
   return (
     <>

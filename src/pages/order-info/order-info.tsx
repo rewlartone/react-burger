@@ -6,16 +6,16 @@ import { useSelector } from '../../services/hooks';
 import dayjs from 'dayjs';
 import { TOrder, TIngredient } from "../../services/types"
 
-const orderStatus: {  [key: string]: string;} = { done: 'Выполнен', 
+const orderStatus: {  [key: string]: string;} = { done: 'Выполнен',
                       pending: 'Готовится',
                       created: 'Создан'
                                 };
-	
+
 
 interface IOrderInfo {
   inModal?: boolean
-}	
-								
+}
+
 const OrderInfo: React.FC<IOrderInfo> = (props) => {
   const { id }: { id: string } = useParams();
   const location = useLocation();
@@ -30,14 +30,14 @@ useEffect(
 let c =0;
 			order.ingredients.forEach((ingr) => {
 				if(ingr !== null){
-				c+= ingredients.find((item: TIngredient) => item._id === ingr).price;
+				c+= ingredients.find((item: TIngredient) => item._id === ingr)!.price;
 				}
 			})
 			setCost(c);
 		}
 	}
    ,[order])
-   
+
    useEffect(
     () => {
 		if(location.pathname.indexOf('/profile') === -1){
@@ -51,7 +51,7 @@ let c =0;
 		}
 	}
    ,[orders, location.pathname])
-   
+
   return (
     <div className={styles.order} style={!props.inModal ? {marginTop:"60px"} : {marginLeft:"40px"}} >
       <p
@@ -91,7 +91,7 @@ let c =0;
        return (<li className={styles.ingredient} key={index}>
           <div className={styles.circle}>
             <img
-              src={ingredients.find((item: TIngredient) => item._id === ingredient).image}
+              src={ingredients.find((item: TIngredient) => item._id === ingredient)!.image}
               width="60px"
             />
           </div>
@@ -99,10 +99,10 @@ let c =0;
             className="text text_type_main-default"
             style={{ marginLeft: '16px', width: '414px' }}
           >
-            {ingredients.find((item: TIngredient) => item._id === ingredient).name}
+            {ingredients.find((item: TIngredient) => item._id === ingredient)!.name}
           </p>
           <div className={styles.cost}>
-            <p className="text text_type_digits-default">1 x {ingredients.find((item: TIngredient) => item._id === ingredient).price}</p>
+            <p className="text text_type_digits-default">1 x {ingredients.find((item: TIngredient) => item._id === ingredient)!.price}</p>
             <CurrencyIcon type="primary" />
           </div>
         </li>)

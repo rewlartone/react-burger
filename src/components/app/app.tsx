@@ -5,7 +5,6 @@ import SignIn from "../../pages/sign-in/sign-in";
 import ForgotPass from "../../pages/forgot-password/forgot-password";
 import Registration from "../../pages/registration/registration";
 import Profile from "../../pages/profile/profile";
-import OrderInfo from "../../pages/order-info/order-info";
 import ResetPass from "../../pages/reset-password/reset-password";
 import ProtectedRoute from "../protected-route/protected-route";
 import { ProvideAuth } from "../../services/auth";

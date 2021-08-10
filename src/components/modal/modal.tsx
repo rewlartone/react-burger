@@ -34,7 +34,7 @@ const Modal: React.FC<IModal> = (props) => {
         closeModal();
       }
     }
-	
+
 	window.addEventListener("keydown", escClose);
 
     return () => {
@@ -43,7 +43,7 @@ const Modal: React.FC<IModal> = (props) => {
   }, [closeModal]);
 
   return ReactDOM.createPortal(
-    <>	
+    <>
         <ModalOverlay closeModal={closeModal} />
       <div className={styles.modal}>
         <section className={styles.header}>

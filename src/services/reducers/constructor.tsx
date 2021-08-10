@@ -5,7 +5,8 @@ import {
   DELETE_ELEMENT,
   CLEAR_CONSTRUCTOR
 } from "../actions/constructor";
-import { TConstructorActions } from "../actions/ingredients"
+import { TIngredient } from "../types"
+import { TConstructorActions } from "../actions/constructor"
 
 export type TConstructorState = {
   elements: TIngredient[],

@@ -12,12 +12,18 @@ export const WS_GET_ORDER: 'WS_GET_ORDER' = 'WS_GET_ORDER';
 export const WS_GET_MY_ORDER: 'WS_GET_MY_ORDER' = 'WS_GET_MY_ORDER';
 
 export interface WSResponse{
-	success: string; 
+	success: string;
 	orders: TOrder[];
 	total: number;
 	totalToday: number
 	}
-	
+
+	export interface IWSConnectionStart {
+	    readonly type: typeof WS_CONNECTION_START;
+	}
+	export interface IWSConnectionMyStart {
+			readonly type: typeof WS_CONNECTION_MY_START;
+	}
 export interface IWSConnectionSuccess {
     readonly type: typeof WS_CONNECTION_SUCCESS;
 }
@@ -52,4 +58,4 @@ export interface IWSGetMyOrder {
 	readonly payload: WSResponse;
 }
 
-export type TWSActions = IWSConnectionSuccess | IWSConnectionError | IWSConnectionClosed | IWSGetOrder | IWSConnectionMySuccess | IWSConnectionMyError | IWSConnectionMyClosed | IWSGetMyOrder;
+export type TWSActions = IWSConnectionSuccess | IWSConnectionError | IWSConnectionClosed | IWSGetOrder | IWSConnectionMySuccess | IWSConnectionMyError | IWSConnectionMyClosed | IWSGetMyOrder | IWSConnectionMyStart | IWSConnectionStart;

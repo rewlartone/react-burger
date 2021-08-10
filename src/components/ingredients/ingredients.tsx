@@ -17,7 +17,6 @@ interface IIngredients {
 }
 
 const Ingredients: React.FC<IIngredients> = (props) => {
-  const { ingredients } = useSelector((store) => store.burgerConstructor);
 
   return (
     <>

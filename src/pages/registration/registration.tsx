@@ -13,12 +13,12 @@ import {
 const Registration: React.FC = () => {
   let auth = useAuth();
   const { user } = useSelector((store) => store.user);
-  const [form, setValue] = React.useState<{ [key: string]: string}>({
+  const [form, setValue] = React.useState<{ email: string; password: string; name: string;}>({
     email: '',
     password: '',
     name: '',
   });
-  
+
 type TE = React.ReactNode & {
 	target: {
 		name: string;
@@ -29,13 +29,10 @@ type TE = React.ReactNode & {
   const onChange = (e: TE): void => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-  let register = React.useCallback(
-    (e) => {
-      e.preventDefault();
+
+  let register = (): void => {
       auth.register(form);
-    },
-    [auth, form]
-  );
+    }
 
   if (user.email) {
     return (

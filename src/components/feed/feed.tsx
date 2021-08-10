@@ -10,7 +10,7 @@ import updateLocale from "dayjs/plugin/updateLocale";
 import { TOrder, TIngredient } from "../../services/types"
 
 const orderStatus: {  [key: string]: string;} = {
-	done: 'Выполнен', 
+	done: 'Выполнен',
     pending: 'Готовится',
     created: 'Создан'
 };
@@ -52,7 +52,8 @@ const Feed: React.FC<IFeed> = (props) => {
         props.data.forEach((ingrs: TOrder) => {
 			ingrs.ingredients.forEach((ingr: string) => {
 				if(ingr !== null){
-				cost+= ingredients.find((item: TIngredient) => item._id === ingr).price;
+					console.log(ingredients);
+				cost+= ingredients.find((item: TIngredient) => item._id === ingr)!.price;
 				}
 			})
 			costsArr.push(cost);
@@ -136,7 +137,7 @@ const Feed: React.FC<IFeed> = (props) => {
                 +{element.ingredients.length-5}
 			 </p>
               <img
-                src={ingredients.find((item: TIngredient) => item._id === ingredient).image}
+                src={ingredients.find((item: TIngredient) => item._id === ingredient)!.image}
                 width="60px"
                 style={{ opacity: "0.3" }}
               />
@@ -144,26 +145,26 @@ const Feed: React.FC<IFeed> = (props) => {
 					  }else{
 						return (<li className={styles.circle} key={index}>
               <img
-                src={ingredients.find((item: TIngredient) => item._id === ingredient).image}
+                src={ingredients.find((item: TIngredient) => item._id === ingredient)!.image}
                 width="60px"
               />
-            </li>);  
+            </li>);
 					  }
 				  }
 			  })
 			  }
           </ul>
           <div className={styles.cost}>
-            <p className="text text_type_digits-default"> 
+            <p className="text text_type_digits-default">
 			{costs[index]}
 			</p>
             <CurrencyIcon type="primary" />
           </div>
         </Link>{" "}
       </li>)
-            })} 
+            })}
 
-     
+
     </ul>
   );
 }

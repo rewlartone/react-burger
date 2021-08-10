@@ -10,7 +10,7 @@ import {
 
 const ForgotPass: React.FC = () => {
   let auth = useAuth();
-  const [form, setValue] = React.useState < { email: string } > { email: "" };
+  const [form, setValue] = React.useState<{ email: string }>({ email: "" });
   const { forgotPassSuccess } = useSelector((store) => store.user);
   const { user } = useSelector((store) => store.user);
 

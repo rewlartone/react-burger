@@ -130,8 +130,8 @@ export interface IResetPassFailed {
 export type TUserActions = IGetNewTokenRequest | IGetNewTokenSuccess | IGetNewTokenFailed | IGetLoginRequest | IGetLoginSuccess | IGetLoginFailed | IGetRegisterRequest | IGetRegisterSuccess | IGetRegisterFailed | IGetUserRequest | IGetUserSuccess | IGetUserFailed | IDataChangeRequest | IDataChangeSuccess | IDataChangeFailed | ILogOutRequest | ILogOutSuccess | ILogOutFailed | IForgotPassRequest | IForgotPassSuccess | IForgotPassFailed | IResetPassRequest | IResetPassSuccess | IResetPassFailed;
 
 
-export function registerRequest(form) {
-	  return async function (dispatch) {
+export function registerRequest(form: { email: string; password: string; name: string;}) {
+	  return async function (dispatch: AppDispatch) {
     try {
       dispatch({
         type: GET_REGISTER_REQUEST,
@@ -161,11 +161,11 @@ export function registerRequest(form) {
 	  if(dataFetch.success){
 	  if(dataFetch.accessToken){
 		   const accessToken = dataFetch.accessToken.split('Bearer ')[1];
-		 		  localStorage.setItem('accessToken', accessToken); 
+		 		  localStorage.setItem('accessToken', accessToken);
 	  }
 	  if(dataFetch.refreshToken){
-		 		  localStorage.setItem('refreshToken', dataFetch.refreshToken); 
-		 
+		 		  localStorage.setItem('refreshToken', dataFetch.refreshToken);
+
 	  }
 }
     } catch (e) {
@@ -174,7 +174,7 @@ export function registerRequest(form) {
         type: GET_REGISTER_FAILED,
       });
     }
-  }; 
+  };
 }
 
 export const loginRequest: AppThunk = (form: { email: string; password: string; }) => {
@@ -210,12 +210,12 @@ export const loginRequest: AppThunk = (form: { email: string; password: string; 
 	  if(dataFetch.accessToken){
 		   const accessToken = dataFetch.accessToken.split('Bearer ')[1];
 
-		 		  localStorage.setItem('accessToken', accessToken); 
+		 		  localStorage.setItem('accessToken', accessToken);
 
-		 
+
 	  }
 	  if(dataFetch.refreshToken){
-		  localStorage.setItem('refreshToken', dataFetch.refreshToken); 
+		  localStorage.setItem('refreshToken', dataFetch.refreshToken);
 		  dispatch({ type: WS_CONNECTION_MY_START });
 	  }
 }
@@ -229,7 +229,7 @@ export const loginRequest: AppThunk = (form: { email: string; password: string; 
 }
 
 export const userRequest: AppThunk = () => {
-  return async function (dispatch: AppDispatch) {
+  return async function (dispatch: AppDispatch & any) {
     try {
       dispatch({
         type: GET_USER_REQUEST,
@@ -245,7 +245,7 @@ export const userRequest: AppThunk = () => {
 
     },
     redirect: 'follow',
-    referrerPolicy: 'no-referrer'	
+    referrerPolicy: 'no-referrer'
   });
 
       if (!res.ok) {
@@ -253,10 +253,10 @@ export const userRequest: AppThunk = () => {
           type: GET_USER_FAILED,
         });
 	let dataFetch = await res.json();
-	console.log(dataFetch);	
+	console.log(dataFetch);
 	 if(dataFetch.message === "jwt expired" && localStorage.getItem('refreshToken')){
-		await dispatch(newTokenRequest());
-		 await dispatch(userRequest());
+	 dispatch(newTokenRequest());
+	 dispatch(userRequest());
 	 }
         throw new Error("Ответ сети не ok");
       }
@@ -276,7 +276,7 @@ export const userRequest: AppThunk = () => {
 }
 
 export const userDataChangeRequest: AppThunk = (form: {email: string; name: string}) => {
-  return async function (dispatch: AppDispatch) {
+  return async function (dispatch: AppDispatch & any) {
     try {
       dispatch({
         type: DATA_CHANGE_REQUEST,
@@ -301,8 +301,8 @@ export const userDataChangeRequest: AppThunk = (form: {email: string; name: stri
         });
 		let dataFetch = await res.json();
 	 if(dataFetch.message === "jwt expired" && localStorage.getItem('refreshToken')){
-		 await dispatch(newTokenRequest());
-		 await dispatch(userDataChangeRequest(form));
+		  dispatch(newTokenRequest());
+		  dispatch(userDataChangeRequest(form));
 	 }
         throw new Error("Ответ сети не ok");
       }
@@ -336,7 +336,7 @@ export const newTokenRequest: AppThunk = () => {
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-	body: JSON.stringify({token: localStorage.getItem('refreshToken')})	
+	body: JSON.stringify({token: localStorage.getItem('refreshToken')})
   });
       if (!res.ok) {
 		  console.log(res);
@@ -352,7 +352,7 @@ export const newTokenRequest: AppThunk = () => {
       });
 	  if(dataFetch.accessToken){
 		   const accessToken = dataFetch.accessToken.split('Bearer ')[1];
-		 localStorage.setItem('accessToken', accessToken);  
+		 localStorage.setItem('accessToken', accessToken);
 	  }
 	  if(dataFetch.refreshToken){
 		  localStorage.setItem('refreshToken', dataFetch.refreshToken);
@@ -365,7 +365,7 @@ export const newTokenRequest: AppThunk = () => {
       });
     }
   }
-  }  
+  }
 }
 
 export const logOutRequest: AppThunk = () => {
@@ -385,7 +385,7 @@ export const logOutRequest: AppThunk = () => {
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-	body: JSON.stringify({token: localStorage.getItem('refreshToken')})	
+	body: JSON.stringify({token: localStorage.getItem('refreshToken')})
   });
       if (!res.ok) {
 		dispatch({
@@ -408,7 +408,7 @@ export const logOutRequest: AppThunk = () => {
       });
     }
   }
-  }  
+  }
 }
 
 export const forgotPassRequest: AppThunk = (form: {email: string}) => {
@@ -427,7 +427,7 @@ export const forgotPassRequest: AppThunk = (form: {email: string}) => {
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-	body: JSON.stringify(form)	
+	body: JSON.stringify(form)
   });
       if (!res.ok) {
 		dispatch({
@@ -447,7 +447,7 @@ export const forgotPassRequest: AppThunk = (form: {email: string}) => {
         type: FORGOT_PASS_FAILED,
       });
     }
-  }  
+  }
 }
 
 export const resetPassRequest: AppThunk = (form: {email: string; token: string}) => {
@@ -466,7 +466,7 @@ export const resetPassRequest: AppThunk = (form: {email: string; token: string})
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-	body: JSON.stringify(form)	
+	body: JSON.stringify(form)
   });
       if (!res.ok) {
 		dispatch({
@@ -486,5 +486,5 @@ export const resetPassRequest: AppThunk = (form: {email: string; token: string})
         type: RESET_PASS_FAILED,
       });
     }
-  }  
+  }
 }

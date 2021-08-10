@@ -16,8 +16,8 @@ import { TOrder } from "../types"
 export type TWSState = {
     wsConnected: boolean,
 	wsMyConnected:boolean,
-    orders: TOrder[],
-	myOrders: TOrder[],
+    orders: {success: boolean;orders:TOrder[] | null;total: number; totalToday: number;},
+	myOrders: {success: boolean;orders:TOrder[] | null;total: number; totalToday: number;},
     error: string,
 	myError: string
 }
@@ -25,11 +25,11 @@ export type TWSState = {
 const initialState: TWSState = {
     wsConnected: false,
 	wsMyConnected:false,
-    orders: [],
-	myOrders:[],
+    orders:{success: false,orders:null,total: 0, totalToday: 0},
+	myOrders: {success: false,orders:null,total: 0, totalToday: 0},
     error: '',
 	myError: ''
-}; 
+};
 
 export const wsReducer = (state = initialState, action: TWSActions) => {
   switch (action.type) {
@@ -61,7 +61,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
                 error: null,
         orders: action.payload
       };
-	  
+
 	      case WS_CONNECTION_MY_SUCCESS:
       return {
         ...state,
@@ -92,4 +92,4 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
     default:
       return state;
   }
-}; 
+};

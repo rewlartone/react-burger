@@ -1,3 +1,4 @@
+import { Location } from "history";
 export type TIngredient = {
     _id: string;
     name: string;
@@ -22,4 +23,9 @@ export type TOrder = {
     updatedAt: string;
 	createdAt: string;
     status: string;
+}
+
+export interface ILocation extends Location {
+    background?: any;
+    from?: any;
 }

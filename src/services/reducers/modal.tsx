@@ -11,7 +11,7 @@ export type TModalState = {
   order: boolean,
   orderRequest: boolean,
   orderFailed: boolean,
-  orderId: number
+  orderId: number | null
 }
 
 const initialState: TModalState = {
@@ -23,7 +23,7 @@ const initialState: TModalState = {
 
 export const modalReducer = (state = initialState, action: TModalActions) => {
   switch (action.type) {
-    
+
     case CLOSE: {
       return { ...state, order: false };
     }

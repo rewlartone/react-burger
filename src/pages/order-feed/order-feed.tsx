@@ -9,19 +9,18 @@ const OrderFeed: React.FC = () => {
   const dispatch = useDispatch();
   const [dones, setDones] = React.useState<TOrder[]>([]);
   const [pendings, setPendings] = React.useState<TOrder[]>([]);
-  const { orders } = useSelector((store) => store.ws);
-  
+  const { orders }: { orders: {orders: TOrder[] | null; success: boolean; total: number; totalToday: number}} = useSelector((store) => store.ws);
   useEffect(
     () => {
-		if(orders.orders !== undefined){
+		if(orders.orders !== null){
         setDones(orders.orders.filter((item: TOrder) =>  item.status === "done" ));
 		setPendings(orders.orders.filter((item: TOrder) =>  item.status === "pending"));
-		
+
 		}
     },[orders.orders]);
-	
+
   return (
-   <>
+    <>
       <div className={styles.orderfeed}>
         <h1 className="text text_type_main-large">Лента заказов</h1>
 		{orders.orders && <Feed type="feed" data={orders.orders}/>}
@@ -34,7 +33,7 @@ const OrderFeed: React.FC = () => {
 			  if(index<5){
 				  return <li className="text text_type_digits-default" key={index}>{item.number}</li>
 			  }
-		  })  
+		  })
 		  }
           </ul>
         </div>
@@ -45,7 +44,7 @@ const OrderFeed: React.FC = () => {
 			  if(index<5){
 				  return <li className="text text_type_digits-default" key={index}>{item.number}</li>
 			  }
-		  })  
+		  })
 		  }
           </ul>
         </div>
@@ -92,7 +91,7 @@ const OrderFeed: React.FC = () => {
          {orders.totalToday}
         </p>
       </div>
-  </> 
+  </>
   );
 }
 
