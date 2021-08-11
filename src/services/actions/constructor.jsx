@@ -1,5 +1,0 @@
-export const SET_ELEMENT = 'SET_ELEMENT';
-export const SET_ELEMENT_BETWEEN = 'SET_ELEMENT_BETWEEN';
-export const SET_BUN = 'SET_BUN';
-export const DELETE_ELEMENT = 'DELETE_ELEMENT';
-export const CLEAR_CONSTRUCTOR = 'CLEAR_CONSTRUCTOR';
